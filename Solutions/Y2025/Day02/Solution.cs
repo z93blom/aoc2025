@@ -24,87 +24,83 @@ partial class Solution : ISolver
         var ranges = input.Split(",")
             .Select(s => s.Trim())
             .Select(r => r.Split("-"))
-            //.Select(e => e.Select(long.Parse).ToArray())
             .ToArray();
 
-        var validRangesToCheck = ranges.Select(ToCheckableRange)
-            .Where(IsValid)
-            .ToArray();
-
-        var invalidIds = validRangesToCheck
+        var invalidIds = ranges
             .Select(r => FindInvalidIds(r[0], r[1]).ToArray())
             .SelectMany(a => a)
-            .Select(long.Parse)
             .ToArray();
-            //.Sum();
 
         var sum = invalidIds.Sum();
         return sum;
     }
 
-    private static string[] ToCheckableRange(string[] range)
+    private static IEnumerable<long> FindInvalidIds(string start, string end)
     {
-        var start = range[0];
-        if (start.Length % 2 != 0)
+        var low = long.Parse(start);
+        var high = long.Parse(end);
+
+        for (var i = low; i <= high; i++)
         {
-            start = "1" + new string('0', start.Length);
+            var s = i.ToString();
+            if (s.Length % 2 == 0)
+            {
+                var left = s.Substring(0, s.Length / 2);
+                var right = s.Substring(s.Length / 2, s.Length / 2);
+                if (left == right)
+                {
+                    yield return i;
+                }
+            }
         }
+    }
 
-        var end = range[1];
-        if (end.Length % 2 != 0)
+    private static IEnumerable<long> FindInvalidIds2(string start, string end)
+    {
+        var low = long.Parse(start);
+        var high = long.Parse(end);
+
+        for (var i = low; i <= high; i++)
         {
-            end = new string('9', end.Length - 1);
+            var s = i.ToString();
+            for (var idx = 1; idx < s.Length / 2 + 1; idx++)
+            {
+                if (s.Length % idx == 0)
+                {
+                    var pattern = s.Substring(0, idx);
+                    var isMatch = true;
+                    for (var ps = pattern.Length; isMatch && ps < s.Length; ps += idx)
+                    {
+                        if (pattern != s.Substring(ps, pattern.Length))
+                        {
+                            isMatch = false;
+                        }
+                    }
+
+                    if (isMatch)
+                    {
+                        yield return i;
+                        break;
+                    }
+                }
+
+            }
         }
-
-        return [start, end];
-    }
-
-    private static bool IsValid(string[] range)
-    {
-        return long.Parse(range[0]) < long.Parse(range[1]);
-    }
-
-    private static IEnumerable<string> FindInvalidIds(string s, string e)
-    {
-        var length = s.Length;
-
-        // take the first half.
-        var low = GetLow(s);
-        var high = GetHigh(e);
-
-
-        while (low <= high)
-        {
-            yield return low.ToString() + low.ToString();
-            low++;
-        }
-
-        //return high - low;
-
-        
-
-        //yield return low;
-        //yield return high;
-
-        //yield break;
-    }
-
-    private static long GetLow(string s)
-    {
-        var left = long.Parse(s.Substring(0, s.Length / 2));
-        var right = long.Parse(s.Substring(s.Length / 2, s.Length / 2));
-        return Math.Max(left, right);
-    }
-
-    private static long GetHigh(string s)
-    {
-        var left = long.Parse(s.Substring(0, s.Length / 2));
-        var right = long.Parse(s.Substring(s.Length / 2, s.Length / 2));
-        return Math.Min(left, right);
     }
 
     static object PartTwo(string input, Func<TextWriter> getOutputFunction)
     {
-        return 0;
+        var ranges = input.Split(",")
+            .Select(s => s.Trim())
+            .Select(r => r.Split("-"))
+            .ToArray();
+
+        var invalidIds = ranges
+            .Select(r => FindInvalidIds2(r[0], r[1]).ToArray())
+            .SelectMany(a => a)
+            .ToArray();
+
+        var sum = invalidIds.Sum();
+        return sum;
     }
 }

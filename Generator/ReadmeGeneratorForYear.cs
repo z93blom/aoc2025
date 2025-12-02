@@ -2,10 +2,12 @@
 
 namespace AdventOfCode.Generator;
 
-public class ReadmeGeneratorForYear {
-    public static string Generate(Calendar calendar) {
+public class ReadmeGeneratorForYear
+{
+    public static string Generate(Calendar calendar)
+    {
         var calendarLines =
-            string.Join("\n",
+            string.Join(Environment.NewLine,
                 from line in calendar.Lines
                 select string.Join("", from token in line select token.Text));
                     

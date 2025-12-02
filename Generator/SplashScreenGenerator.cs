@@ -5,7 +5,8 @@ using AdventOfCode.Utilities;
 namespace AdventOfCode.Generator;
 
 public class SplashScreenGenerator {
-    public static string Generate(Calendar calendar) {
+    public static string Generate(Calendar calendar)
+    {
         string calendarPrinter = CalendarPrinter(calendar);
         return $$"""
             using AdventOfCode.Framework;
