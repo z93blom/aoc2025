@@ -21,8 +21,9 @@ partial class Solution : ISolver
 
     static object PartOne(string input, Func<TextWriter> getOutputFunction)
     {
-        var lines = input.Lines();
-        var result = lines.Select(FindMax)
+        var lines = input.Lines()
+            .Select(l => l.ToArray());
+        var result = lines.Select(line => FindMax2(line, 2))
             .ToArray();
 
         return result.Sum();
@@ -49,8 +50,9 @@ partial class Solution : ISolver
 
     static object PartTwo(string input, Func<TextWriter> getOutputFunction)
     {
-        var lines = input.Lines();
-        var result = lines.Select(l => FindMax2(l.ToArray()))
+        var lines = input.Lines()
+            .Select(l => l.ToArray());
+        var result = lines.Select(line => FindMax2(line, 12))
             .ToArray();
 
         return result.Sum();
@@ -58,30 +60,33 @@ partial class Solution : ISolver
 
     public record struct V(char[] Line, int Start, int Count);
 
-    public static long FindMax2(char[] line)
+    public static long FindMax2(char[] line, int count)
     {
         Func<V, long> maxFinder = null;
         maxFinder = Memoizer.Memoize<V, long>(v =>  FindMax2(v, maxFinder));
-        var result = maxFinder(new V(line, 0, 12));
+        var result = maxFinder(new V(line, 0, count));
         return result;
     }
 
     public static long FindMax2(V input, Func<V, long> func)
     {
+        if (input.Start >= input.Line.Length)
+        {
+            return 0;
+        }
+
         if (input.Line.Length == input.Start + input.Count)
         {
+            // Take the remaining items.
             return long.Parse(input.Line[input.Start..]);
         }
 
-        var current = input.Line[input.Start];
-
-        if (input.Count == 1)
-        {
-            return current - '0';
-        }
-
+        var current = (long)((input.Line[input.Start] - '0') * Math.Pow(10,input.Count - 1));
         var maxLater = func(input with { Start = input.Start + 1 });
-        var maxThis = long.Parse(current + func(input with { Start = input.Start + 1, Count = input.Count - 1 }).ToString());
+
+        var maxExceptThis = func(input with { Start = input.Start + 1, Count = input.Count - 1 });
+        var maxThis = current + maxExceptThis;
+//        var maxThis = long.Parse(current + func(input with { Start = input.Start + 1, Count = input.Count - 1 }).ToString());
 
         return Math.Max(maxThis, maxLater);
     }
