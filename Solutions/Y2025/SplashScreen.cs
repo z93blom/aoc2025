@@ -7,18 +7,18 @@ partial class SplashScreenImpl : SplashScreen
     public override void Show()
     {
         WriteFiglet("Advent of code 2025", Spectre.Console.Color.Yellow);
-        Write(0xffffff, false, "                    ____   .       ");
-        Write(0xffff66, true, "*   ");
-        Write(0xffffff, false, ".'     .     ");
+        Write(0xffffff, false, "                 .  ____ . '   '.  ");
+        Write(0xffff66, true, "* ");
+        Write(0xffffff, false, ".              ");
         Write(0xff9900, false, "<");
-        Write(0xffffff, false, "o ' ' '       \n           ________/");
+        Write(0xffffff, false, "o   . .       \n           ________/");
         Write(0x999999, false, "O___");
         Write(0xffffff, false, "\\__________");
         Write(0xff0000, false, "|");
         Write(0xffffff, false, "_________________O______  ");
         Write(0xcccccc, false, " 1 ");
-        Write(0xffff66, false, "**\n            ");
-        Write(0x32211a, false, ". ");
+        Write(0xffff66, false, "**\n           ");
+        Write(0x32211a, false, ".  ");
         Write(0x999999, false, "_______");
         Write(0xaabbcc, false, "||");
         Write(0x999999, false, "_________                                   \n              | ");
@@ -33,7 +33,8 @@ partial class SplashScreenImpl : SplashScreen
         Write(0x999999, false, "|");
         Write(0x666666, false, "_ _________________________   ");
         Write(0xcccccc, false, " 2 ");
-        Write(0xffff66, false, "**\n              ");
+        Write(0xffff66, false, "**\n           ");
+        Write(0x32211a, false, "'  ");
         Write(0x999999, false, "|_");
         Write(0xff0000, false, "&");
         Write(0x999999, false, "_");
@@ -48,20 +49,25 @@ partial class SplashScreenImpl : SplashScreen
         Write(0x9b715b, false, "=");
         Write(0x999999, false, "_");
         Write(0x9b715b, false, "[");
-        Write(0x333333, false, " \\|     _    .. .. ..     |        \n                                \\_]__--|_|___[]_[]_[]__//_|   ");
-        Write(0x666666, false, " 3\n                                                                   \n                             ");
-        Write(0x666666, false, "                                  4\n                                                                ");
-        Write(0x666666, false, "   \n                                                               5\n                               ");
+        Write(0x666666, false, " \\|..'  _    .. .. ..     |        \n                                \\_]__--|_|___[]_[]_[]__//_|   ");
+        Write(0xcccccc, false, " 3 ");
+        Write(0xffff66, false, "*");
+        Write(0x666666, false, "*\n           ");
+        Write(0x333333, false, "                               ____________//___        \n                                          |");
+        Write(0x333333, false, " \\        // @@|   ");
+        Write(0x666666, false, " 4\n           ");
+        Write(0x333333, false, "                               |_[#]_@@__//_@@@|        \n                                           ");
+        Write(0x333333, false, "                   ");
+        Write(0x666666, false, " 5\n                                                                   \n                             ");
+        Write(0x666666, false, "                                  6\n                                                                ");
+        Write(0x666666, false, "   \n                                                               7\n                               ");
         Write(0x666666, false, "                                    \n                                                               ");
-        Write(0x666666, false, "6\n                                                                   \n                              ");
-        Write(0x666666, false, "                                 7\n                                                                 ");
-        Write(0x666666, false, "  \n                                                               8\n                                ");
-        Write(0x666666, false, "                                   \n                                                               9");
+        Write(0x666666, false, "8\n                                                                   \n                              ");
+        Write(0x666666, false, "                                 9\n                                                                 ");
+        Write(0x666666, false, "  \n                                                              10\n                                ");
+        Write(0x666666, false, "                                   \n                                                              11");
         Write(0x666666, false, "\n                                                                   \n                               ");
-        Write(0x666666, false, "                               10\n                                                                  ");
-        Write(0x666666, false, " \n                                                              11\n                                 ");
-        Write(0x666666, false, "                                  \n                                                              12\n");
-        Write(0x666666, false, "           \n");
+        Write(0x666666, false, "                               12\n           \n");
         
         Console.WriteLine();
     }

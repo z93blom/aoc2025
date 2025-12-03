@@ -1,0 +1,125 @@
+using AdventOfCode.Framework;
+using AdventOfCode.Utilities;
+
+namespace AdventOfCode.Solutions.Y2025.Day03;
+
+[RegisterKeyedTransient("2025-03")] partial class Solution { }
+[RegisterTransient()] partial class Solution { }
+
+partial class Solution : ISolver
+{
+    public int Year => 2025;
+    public int Day => 3;
+    public string GetName() => "Lobby";
+
+    public IEnumerable<object> Solve(string input, Func<TextWriter> getOutputFunction)
+    {
+        // var emptyOutput = () => new NullTextWriter();
+        yield return PartOne(input, getOutputFunction);
+        yield return PartTwo(input, getOutputFunction);
+    }
+
+    static object PartOne(string input, Func<TextWriter> getOutputFunction)
+    {
+        var lines = input.Lines();
+        var result = lines.Select(FindMax)
+            .ToArray();
+
+        return result.Sum();
+    }
+
+    public static int FindMax(string l)
+    {
+        var max = int.Parse(l[0].ToString() + l[1]);
+        for (var i = 0; i < l.Length - 1; i++)
+        {
+            for (var j = i + 1; j < l.Length; j++)
+            {
+                var v = int.Parse(l[i].ToString() + l[j]);
+                if (v > max)
+                {
+                    max = v;
+                }
+            }
+        }
+
+        return max;
+    }
+
+
+    static object PartTwo(string input, Func<TextWriter> getOutputFunction)
+    {
+        var lines = input.Lines();
+        var result = lines.Select(l => FindMax2(l.ToArray()))
+            .ToArray();
+
+        return result.Sum();
+    }
+
+    public record struct V(char[] Line, int Start, int Count);
+
+    public static long FindMax2(char[] line)
+    {
+        Func<V, long> maxFinder = null;
+        maxFinder = Memoizer.Memoize<V, long>(v =>  FindMax2(v, maxFinder));
+        var result = maxFinder(new V(line, 0, 12));
+        return result;
+    }
+
+    public static long FindMax2(V input, Func<V, long> func)
+    {
+        if (input.Line.Length == input.Start + input.Count)
+        {
+            return long.Parse(input.Line[input.Start..]);
+        }
+
+        var current = input.Line[input.Start];
+
+        if (input.Count == 1)
+        {
+            return current - '0';
+        }
+
+        var maxLater = func(input with { Start = input.Start + 1 });
+        var maxThis = long.Parse(current + func(input with { Start = input.Start + 1, Count = input.Count - 1 }).ToString());
+
+        return Math.Max(maxThis, maxLater);
+    }
+
+}
+
+public static class Memoizer
+{
+    /// <summary>
+    /// Memoizes provided function. Function should provide deterministic results.
+    /// For the same input it should return the same result.
+    /// Memoized function for the specific input will be called once, further calls will use cache.
+    /// </summary>
+    /// <param name="func">function to be memoized</param>
+    /// <typeparam name="TInput">Type of the function input value</typeparam>
+    /// <typeparam name="TResult">Type of the function result</typeparam>
+    /// <returns></returns>
+    public static Func<TInput, TResult> Memoize<TInput, TResult>(this Func<TInput, TResult> func)
+    {
+        // create cache ("memo")
+        var memo = new Dictionary<TInput, TResult>();
+
+        // wrap provided function with cache handling
+        return input =>
+        {
+            // check if result for set input was already cached
+            if (memo.TryGetValue(input, out var fromMemo))
+                // if yes, return value
+                return fromMemo;
+
+            // if no, call function
+            var result = func(input);
+
+            // cache the result
+            memo.Add(input, result);
+
+            // return result
+            return result;
+        };
+    }
+}
