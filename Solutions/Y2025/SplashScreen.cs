@@ -7,9 +7,9 @@ partial class SplashScreenImpl : SplashScreen
     public override void Show()
     {
         WriteFiglet("Advent of code 2025", Spectre.Console.Color.Yellow);
-        Write(0xffffff, false, "            '  '.   ____ .'  .     ");
+        Write(0xffffff, false, "           . .      ____  '  .     ");
         Write(0xffff66, true, "*         ");
-        Write(0xffffff, false, "'.  .  ");
+        Write(0xffffff, false, ".  ' . ");
         Write(0xff9900, false, "<");
         Write(0xffffff, false, "o     .       \n           ________/");
         Write(0x999999, false, "O___");
@@ -20,8 +20,8 @@ partial class SplashScreenImpl : SplashScreen
         Write(0xffff66, false, "**\n              ");
         Write(0x999999, false, "_______");
         Write(0xaabbcc, false, "||");
-        Write(0x999999, false, "_________         ");
-        Write(0x32211a, false, "'      ''    .            \n           '' ");
+        Write(0x999999, false, "_________   ");
+        Write(0x32211a, false, ".         '             '       \n           '  ");
         Write(0x999999, false, "| ");
         Write(0x9b715b, false, "_");
         Write(0xbb66ff, false, "@");
@@ -33,8 +33,8 @@ partial class SplashScreenImpl : SplashScreen
         Write(0xff0000, false, "'.");
         Write(0x999999, false, "|_ _________________________   ");
         Write(0xcccccc, false, " 2 ");
-        Write(0xffff66, false, "**\n            ");
-        Write(0x32211a, false, ". ");
+        Write(0xffff66, false, "**\n           ");
+        Write(0x32211a, false, ".. ");
         Write(0x999999, false, "|_");
         Write(0xff0000, false, "&");
         Write(0x999999, false, "_");
@@ -58,8 +58,8 @@ partial class SplashScreenImpl : SplashScreen
         Write(0x666666, false, ". ");
         Write(0xff0000, false, ".");
         Write(0x666666, false, ".     ");
-        Write(0x999999, false, "|        \n               ");
-        Write(0x32211a, false, "'   '' ''  . '   ");
+        Write(0x999999, false, "|        \n           ");
+        Write(0x32211a, false, ".       .   .   .  . ");
         Write(0x999999, false, "\\_");
         Write(0xaabbcc, false, "]");
         Write(0x999999, false, "__");
@@ -75,8 +75,8 @@ partial class SplashScreenImpl : SplashScreen
         Write(0xaabbcc, false, "//");
         Write(0x999999, false, "_|   ");
         Write(0xcccccc, false, " 3 ");
-        Write(0xffff66, false, "**\n            ");
-        Write(0x32211a, false, "' '?     . '  '  .. ' .'.   ' ");
+        Write(0xffff66, false, "**\n           ");
+        Write(0x32211a, false, "'  .'  .' .  .  '  ''   ''     ");
         Write(0x999999, false, "____________");
         Write(0xaabbcc, false, "//");
         Write(0x999999, false, "___        \n           __________________________  ");
@@ -135,12 +135,26 @@ partial class SplashScreenImpl : SplashScreen
         Write(0x999999, false, "_");
         Write(0xaa7744, false, "...'                      ");
         Write(0xcccccc, false, " 5 ");
+        Write(0xffff66, false, "**\n            ");
+        Write(0x009900, false, "||");
+        Write(0x666666, false, "   ____________                                      \n           ");
+        Write(0x999999, false, "_");
+        Write(0x009900, false, "||");
+        Write(0x999999, false, "__");
+        Write(0x666666, false, "/            \\_                               ");
+        Write(0xcccccc, false, " 6 ");
         Write(0xffff66, false, "**\n           ");
-        Write(0x333333, false, " ||                                                     \n           _||__                           ");
-        Write(0x333333, false, "                   ");
-        Write(0x666666, false, " 6\n           ");
-        Write(0x333333, false, "|   |                                                   \n           |___]                           ");
-        Write(0x333333, false, "                   ");
+        Write(0x999999, false, "|");
+        Write(0x00ff00, false, "^");
+        Write(0xbb66ff, false, "@ ");
+        Write(0x999999, false, "|");
+        Write(0x333333, false, "   1  2  3    |                                    \n           ");
+        Write(0x999999, false, "|");
+        Write(0xff0000, false, "&");
+        Write(0xffff66, false, "%");
+        Write(0x00aaaa, false, ";");
+        Write(0xaabbcc, false, "]");
+        Write(0x333333, false, "__[]_[]_[]__<>|                               ");
         Write(0x666666, false, " 7\n                                                                   \n                             ");
         Write(0x666666, false, "                                  8\n                                                                ");
         Write(0x666666, false, "   \n                                                               9\n                               ");

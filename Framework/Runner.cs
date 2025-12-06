@@ -82,7 +82,7 @@ public static class Runner
 
                         var refoutFile = file.Replace(".in", ".refout");
                         var refout = File.Exists(refoutFile) ? File.ReadAllLines(refoutFile) : null;
-                        var input = File.ReadAllText(file).TrimEnd();
+                        var input = File.ReadAllText(file);
                         if (string.IsNullOrEmpty(input))
                         {
                             continue;
