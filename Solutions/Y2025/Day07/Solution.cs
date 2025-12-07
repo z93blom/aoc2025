@@ -61,7 +61,7 @@ partial class Solution : ISolver
 
     static long GetPossibleTimeLines(Grid<char> grid)
     {
-        Func<Gp, long> func = null;
+        Func<Gp, long>? func = null;
         func = Memoizer.Memoize<Gp, long>(gp => GetPossibleTimeLines(gp, func!));
         var start = grid.XSlice(0).First(p => grid[p] == 'S');
         var timelines = func(new Gp(grid, start));
