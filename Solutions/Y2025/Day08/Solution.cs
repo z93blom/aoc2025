@@ -47,22 +47,22 @@ partial class Solution : ISolver
 
         foreach (var connection in connections.Take(iterations))
         {
-            var firstSet = lookup[connection.From];
-            var secondSet = lookup[connection.To];
+            var firstCircuit = lookup[connection.From];
+            var secondCircuit = lookup[connection.To];
 
-            if (firstSet == secondSet)
+            if (firstCircuit == secondCircuit)
             {
                 continue;
             }
 
             // Combine them, and update the circuits
-            foreach (var p in secondSet)
+            foreach (var p in secondCircuit)
             {
-                firstSet.Add(p);
+                firstCircuit.Add(p);
             }
 
-            lookup[connection.To] = firstSet;
-            circuits.Remove(secondSet);
+            lookup[connection.To] = firstCircuit;
+            circuits.Remove(secondCircuit);
         }
 
         var topCircuits = circuits
