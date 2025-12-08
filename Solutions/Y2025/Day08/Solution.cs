@@ -59,9 +59,9 @@ partial class Solution : ISolver
             foreach (var p in secondCircuit)
             {
                 firstCircuit.Add(p);
+                lookup[p] = firstCircuit;
             }
 
-            lookup[connection.To] = firstCircuit;
             circuits.Remove(secondCircuit);
         }
 
@@ -85,6 +85,54 @@ partial class Solution : ISolver
 
     static object PartTwo(string input, Func<TextWriter> getOutputFunction)
     {
-        return 0;
+        // Note: Added a single line at the top to get the number of iterations, since they vary by file.
+        var id = 0;
+        var junctionBoxes = input.Lines()
+            .Skip(1)
+            .Select(l => l.Split(",").Select(long.Parse).ToArray())
+            .Select(a => new Point3(a[0], a[1], a[2], id++))
+            .ToArray();
+
+        var connections = junctionBoxes.Cartesian(junctionBoxes)
+            .Where(t => t.Item1.Id < t.Item2.Id)
+            .Select(t => new Connection(t.Item1, t.Item2))
+            .OrderBy(c => c.SquaredDistance)
+            .ToArray();
+
+        var lookup = junctionBoxes.ToDictionary(
+            p => p,
+            p => new HashSet<Point3> { p });
+
+        var circuits = lookup.Select(kvp => kvp.Value).ToList();
+        var lastIndex = 0;
+        foreach (var (index, connection) in connections.Index())
+        {
+            var firstCircuit = lookup[connection.From];
+            var secondCircuit = lookup[connection.To];
+
+            if (firstCircuit == secondCircuit)
+            {
+                continue;
+            }
+
+            // Combine them, and update the circuits
+            foreach (var p in secondCircuit)
+            {
+                firstCircuit.Add(p);
+                lookup[p] = firstCircuit;
+            }
+
+            circuits.Remove(secondCircuit);
+
+            if (circuits.Count == 1)
+            {
+                lastIndex = index;
+                break;
+            }
+        }
+
+        var lastConnection = connections[lastIndex];
+        var result = lastConnection.From.X * lastConnection.To.X;
+        return result;
     }
 }
