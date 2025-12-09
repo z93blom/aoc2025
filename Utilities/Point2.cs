@@ -57,7 +57,7 @@ public readonly record struct Point2(long X, long Y, YAxisDirection YAxis)
     }
 
     /// <summary>
-    ///  The adjacent points include all the points around this point, including the diagonal points.
+    ///  The diagonal adjacent points are the diagonal adjacent points only, not the orthagonal points.
     /// </summary>
     public IEnumerable<Point2> DiagonalAdjacentPoints
     {
