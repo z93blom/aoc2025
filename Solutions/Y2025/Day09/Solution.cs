@@ -39,16 +39,16 @@ namespace AdventOfCode.Solutions.Y2025.Day09
 
         private readonly record struct Pair(Tile First, Tile Second)
         {
-            public long Area => (Math.Abs(First.X - Second.X) + 1) * (Math.Abs(First.Y - Second.Y) + 1);
+            public long Area => ((First.X - Second.X).Abs() + 1) * ((First.Y - Second.Y).Abs() + 1);
 
             public bool CrossesEdge(Tile start, Tile end)
             {
                 // If the line, given by start <-> end, crosses any of the edges of area
                 // the area cannot be completely inside the polygon.
-                var result = Math.Min(First.X, Second.X) >= Math.Max(start.X, end.X)
-                             || Math.Max(First.X, Second.X) <= Math.Min(start.X, end.X)
-                             || Math.Min(First.Y, Second.Y) >= Math.Max(start.Y, end.Y)
-                             || Math.Max(First.Y, Second.Y) <= Math.Min(start.Y, end.Y);
+                var result = First.X.Min(Second.X) >= start.X.Max(end.X)
+                             || First.X.Max(Second.X) <= start.X.Min(end.X)
+                             || First.Y.Min(Second.Y) >= start.Y.Max(end.Y)
+                             || First.Y.Max(Second.Y) <= start.Y.Min(end.Y);
                 return result;
             }
         }
